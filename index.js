@@ -6,10 +6,13 @@ async function setBackgroundImage() {
     // Make the HTTP request and parse the response as JSON
     const res = await fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature");
     const data = await res.json();
+
     // Set the body's background image to the image returned in the response
     document.body.style.backgroundImage = `url(${data.urls.regular})`;
+
     // Set the text content of the element with the ID "author" to the name of the user who took the photo
-    document.getElementById("author").textContent = `By: ${data.user.name}`;
+    const authorElement = document.getElementById("author");
+    authorElement.textContent = `By: ${data.user.name}`;
   } catch (error) {
     // If there was an error, use the cached default background image/author
     document.body.style.backgroundImage = `url(${defaultBackgroundImageUrl})`;
@@ -18,8 +21,8 @@ async function setBackgroundImage() {
     return error;
   }
 }
-setBackgroundImage();
 
+setBackgroundImage();
 
 // Declare a constant to hold the number of coins to display
 const numCoinsToDisplay = 3;
@@ -92,22 +95,26 @@ const options = {
   maximumAge: 5000,
 };
 
-function success(pos) {
-  // Destructure the "coords" property from the "pos" object
-  const { coords } = pos;
+async function getWeatherData(lat, lon) {
+  // Make a fetch request to the OpenWeatherMap API using the latitude and longitude
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=281e5778a390fb9f47b3a148026caa69&units=metric`
+  );
 
-  // Make a fetch request to the OpenWeatherMap API using the latitude and longitude from the "coords" object
-  fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=281e5778a390fb9f47b3a148026caa69&units=metric `
-  )
-    .then((res) => {
-      // If the response is not "ok", throw an error
-      if (!res.ok) {
-        throw Error("Something went wrong");
-      }
-      // If the response is "ok", return the response as JSON
-      return res.json();
-    })
+  // If the response is not "ok", throw an error
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  // If the response is "ok", return the response as JSON
+  return response.json();
+}
+
+function success(pos) {
+  // Destructure the "latitude" and "longitude" properties from the "coords" object in the "pos" object
+  const { latitude, longitude } = pos.coords;
+
+  // Get the weather data using the latitude and longitude
+  getWeatherData(latitude, longitude)
     .then((data) => {
       console.log(data);
 
