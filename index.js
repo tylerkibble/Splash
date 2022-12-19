@@ -120,50 +120,6 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 function expanded_weather() {
   console.log("clicked");
   const expanded_weather = document.getElementById("expanded_weather");
-  expanded_weather.classList.toggle("hide");
+  expanded_weather.classList.toggle("hide")
 }
 crypto();
-
-// function advanced_weather() {
-//   fetch("https://api.checkwx.com/metar/CYYJ/?x-api-key=0c8a7995f24e4c699453e3bb8d")
-//   .then((res) => res.json())
-//   .then((data) => {
-//     console.log(data)
-//     var advanced_weather = document.getElementById("advanced_weather")
-//     advanced_weather.innerHTML = `
-//     <div>METAR Report: ${data.data[0]}</div>
-//     `
-//   })
-//   .catch((err) => console.log(err));
-// };
-// setInterval(advanced_weather, 1000);
-
-// async function expanded_crypto() {
-//   console.log("clicked");
-//   document.getElementById("crypto").innerHTML = "";
-//   hover += [3];
-//   await crypto();
-// }
-
-//display the current time
-// function displayTime() {
-//   const time = new Date();
-//   document.getElementById("time").textContent = time.toLocaleTimeString("en-us", {timeStyle: "short"});
-//   const display_time = document.getElementById("time");
-//   display_time.innerHTML = time;
-//   setTimeout(displayTime, 1000);
-//   console.log(time);
-// }
-
-/* 
-var time = hours + ":" + minutes + " " + am_pm;
-var am_pm = today.getHours() >= 12 ? "PM" : "AM";
-var hours = today.getHours() - 12;
-var minutes = today.getMinutes();
-if (minutes < 10) {
-  minutes = "0" + minutes;
-}
-weather api key 
-*/
-
-// create a tests folder and a tests.js file
